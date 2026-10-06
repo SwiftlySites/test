@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Дзиґа — кафе, де все крутиться</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#2b3cff;--yolk:#ffd23f;--pink:#ff9ecb;--lime:#c8ff5a;--paper:#f7f5ff;--ink:#11103a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;height:100%}
+body{margin:0;background:var(--blue);color:var(--paper);font:500 17px/1.55 Manrope,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3,.mono{font-family:"Rubik Mono One",Impact,sans-serif;font-weight:400;margin:0;line-height:1}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+section,footer{position:relative}
+.wv{position:absolute;left:0;right:0;top:-59px;height:60px;overflow:hidden;pointer-events:none}
+.wv svg{width:200%;height:60px;animation:wave 14s linear infinite;display:block}
+.wv path{fill:currentColor}
+@keyframes wave{to{transform:translateX(-50%)}}
+#cur{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border:3px solid var(--lime);border-radius:50%;z-index:99;pointer-events:none;transition:width .25s,height .25s,margin .25s,background .25s;mix-blend-mode:difference;display:none}
+#cur.big{width:80px;height:80px;margin:-40px 0 0 -40px;background:var(--lime)}
+@media (hover:hover){#cur{display:block}}
+nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px 4vw;pointer-events:none}
+nav>*{pointer-events:auto}
+.logo{background:var(--yolk);color:var(--ink);padding:8px 16px;border-radius:99px;font-family:"Rubik Mono One";font-size:18px;box-shadow:4px 4px 0 var(--ink);text-decoration:none;transition:transform .3s cubic-bezier(.3,2,.5,1)}
+.logo:hover{transform:rotate(-6deg) scale(1.1)}
+.links{display:flex;gap:8px}
+.links a{background:var(--paper);color:var(--ink);padding:8px 14px;border-radius:99px;font-weight:800;text-decoration:none;box-shadow:3px 3px 0 var(--ink);transition:transform .2s}
+.links a:hover{transform:translate(-2px,-4px) rotate(3deg);background:var(--lime)}
+.hero{min-height:100vh;display:grid;place-items:center;text-align:center;padding:110px 4vw 90px;overflow:hidden;position:relative}
+.blob{position:absolute;filter:blur(2px);animation:morph 9s ease-in-out infinite;opacity:.9}
+.b1{width:34vw;height:34vw;background:var(--pink);left:-8vw;top:8vh}
+.b2{width:26vw;height:26vw;background:var(--yolk);right:-6vw;bottom:6vh;animation-delay:-4s}
+@keyframes morph{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%;transform:rotate(0)}50%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%;transform:rotate(40deg) translateY(-30px)}}
+.big{position:relative;display:flex;justify-content:center;flex-wrap:wrap;gap:1.2vw}
+.big span{display:block;font-family:"Rubik Mono One";font-size:clamp(54px,15vw,200px);color:var(--ink);padding:.02em .12em;border-radius:.18em;box-shadow:.05em .05em 0 var(--ink);transition:translate .25s cubic-bezier(.2,1.5,.5,1);animation:drop 1s cubic-bezier(.3,1.6,.5,1) both,wob 3.4s ease-in-out infinite}
+.big span:nth-child(1){background:var(--yolk)}.big span:nth-child(2){background:var(--pink)}.big span:nth-child(3){background:var(--paper)}.big span:nth-child(4){background:var(--lime)}.big span:nth-child(5){background:var(--yolk)}
+@keyframes drop{from{transform:translateY(-110vh) rotate(-60deg);opacity:0}}
+@keyframes wob{0%,100%{rotate:-3deg}50%{rotate:3deg}}
+.lead{position:relative;font-size:clamp(18px,2.6vw,26px);font-weight:800;margin:32px auto 26px;max-width:640px;animation:drop 1s .9s both}
+.btn{position:relative;display:inline-block;background:var(--yolk);color:var(--ink);font-weight:800;font-size:18px;padding:16px 30px;border-radius:99px;box-shadow:5px 5px 0 var(--ink);text-decoration:none;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(-3px,-3px) rotate(-2deg);box-shadow:8px 8px 0 var(--ink)}
+.btn:active{transform:translate(4px,4px);box-shadow:1px 1px 0 var(--ink)}
+.top{position:absolute;width:clamp(80px,12vw,150px);right:9vw;top:20vh;transform-origin:50% 95%;animation:tilt 2.6s ease-in-out infinite;z-index:2}
+@keyframes tilt{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(14deg)}}
+.top .st{transform-origin:60px 90px;animation:sp .35s linear infinite alternate}
+@keyframes sp{from{transform:scaleX(1)}to{transform:scaleX(.25)}}
+.badge{position:absolute;left:6vw;bottom:9vh;width:clamp(110px,15vw,180px);z-index:2}
+.badge svg{width:100%;animation:rot 16s linear infinite;display:block}
+.badge b{position:absolute;inset:0;display:grid;place-items:center;font-size:44px;animation:bounce 1.6s ease-in-out infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+@keyframes bounce{50%{transform:translateY(-10px) scale(1.15)}}
+.band{position:relative;overflow:hidden;padding:14px 0;font-family:"Rubik Mono One";font-size:22px;color:var(--ink);white-space:nowrap}
+.band div{display:inline-block;will-change:transform}
+.ba{background:var(--lime);transform:rotate(-2deg);margin:0 -3vw}
+.bb{background:var(--pink);transform:rotate(1.5deg);margin:-14px -3vw 0}
+.wrap{max-width:1100px;margin:0 auto;padding:100px 5vw 60px}
+h2{font-size:clamp(34px,7vw,78px);margin-bottom:18px}
+h2 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
+h2 .w i{display:inline-block;font-style:normal;transform:translateY(110%) rotate(8deg);transition:transform .8s cubic-bezier(.2,1.3,.4,1)}
+h2.in .w i{transform:none}
+.sub{max-width:560px;margin:0 0 30px;font-weight:700}
+.s-menu{background:var(--yolk);color:var(--ink)}
+.s-cart{background:var(--pink);color:var(--ink)}
+.s-rev{background:var(--blue);color:var(--paper)}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.tab{background:var(--paper);padding:10px 20px;border-radius:99px;font-weight:800;border:3px solid var(--ink);transition:transform .25s cubic-bezier(.3,2,.5,1)}
+.tab:hover{transform:rotate(-4deg) scale(1.08)}
+.tab.on{background:var(--ink);color:var(--yolk);transform:rotate(-3deg) scale(1.1)}
+.it{display:grid;grid-template-columns:1.2fr 1.5fr auto auto;gap:16px;align-items:center;padding:20px 12px;border-top:3px solid var(--ink);position:relative;transition:padding .3s,background .3s,color .3s;animation:row .5s both}
+.it:last-child{border-bottom:3px solid var(--ink)}
+@keyframes row{from{opacity:0;transform:translateX(-60px) skewX(10deg)}}
+.it:hover{background:var(--ink);color:var(--yolk);padding-left:34px}
+.it .nm{font-family:"Rubik Mono One";font-size:clamp(17px,2.4vw,26px)}
+.it .ds{font-weight:700;opacity:.8}
+.it .pr{font-family:"Rubik Mono One";font-size:22px}
+.add{width:50px;height:50px;border-radius:50%;background:var(--blue);color:#fff;font-size:28px;font-weight:800;border:3px solid var(--ink);transition:transform .3s cubic-bezier(.3,2.5,.5,1)}
+.add:hover{transform:rotate(180deg) scale(1.2);background:var(--pink);color:var(--ink)}
+.add:active{transform:scale(.8)}
+#pv{position:fixed;left:0;top:0;z-index:40;pointer-events:none;font-size:110px;line-height:1;opacity:0;transition:opacity .2s,scale .35s cubic-bezier(.3,2,.5,1);scale:.3;filter:drop-shadow(6px 6px 0 var(--ink))}
+#pv.on{opacity:1;scale:1}
+.fly{position:fixed;z-index:80;font-size:36px;pointer-events:none}
+.bar{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));translate:-50% 150px;z-index:60;display:flex;gap:14px;align-items:center;background:var(--paper);color:var(--ink);padding:9px 9px 9px 22px;border-radius:99px;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);font-weight:800;white-space:nowrap;transition:translate .6s cubic-bezier(.3,1.7,.5,1)}
+.bar.show{translate:-50% 0}
+.bar.bump{animation:bump .45s}
+@keyframes bump{40%{scale:1.14 .88}70%{scale:.96 1.05}}
+.bar button{background:var(--blue);color:#fff;padding:11px 22px;border-radius:99px;font-weight:800;transition:transform .2s}
+.bar button:hover{transform:scale(1.1) rotate(-3deg)}
+.cart{background:var(--paper);border:3px solid var(--ink);border-radius:30px;padding:28px;box-shadow:10px 10px 0 var(--ink);position:relative}
+.ln{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:3px dotted var(--ink);animation:row .4s both}
+.ln .em{font-size:36px}.ln .n{flex:1;font-weight:800}
+.q{display:flex;align-items:center;gap:10px;font-weight:800}
+.q button{width:34px;height:34px;border-radius:50%;border:3px solid var(--ink);background:var(--yolk);font-weight:800;transition:transform .25s}
+.q button:hover{transform:rotate(90deg) scale(1.2)}
+.empty{text-align:center;padding:28px;font-weight:800}
+.empty span{display:block;font-size:56px;animation:tilt 2s ease-in-out infinite}
+.tot{display:flex;justify-content:space-between;align-items:center;margin-top:20px;font-family:"Rubik Mono One";font-size:24px}
+.order{width:100%;margin-top:18px;font-size:20px;padding:20px;background:var(--blue);color:#fff;border:3px solid var(--ink)}
+.note{font-size:14px;font-weight:700;text-align:center;margin:12px 0 0}
+.form{display:grid;gap:16px;background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:30px;padding:28px;box-shadow:10px 10px 0 var(--ink);margin-bottom:50px}
+select,textarea{width:100%;border:3px solid var(--ink);border-radius:16px;padding:14px;font:700 16px Manrope;background:#fff;color:var(--ink);transition:box-shadow .2s,transform .2s}
+select:focus,textarea:focus{outline:0;box-shadow:6px 6px 0 var(--pink);transform:translate(-3px,-3px)}
+.stars{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.stars button{width:52px;height:52px;transition:transform .25s cubic-bezier(.3,2.5,.5,1)}
+.stars svg{width:100%;height:100%;fill:#fff;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round;transition:fill .2s}
+.stars button.on svg{fill:var(--yolk)}
+.stars button:hover{transform:scale(1.35) rotate(18deg)}
+.stars button.pop{animation:spin .7s cubic-bezier(.3,1.5,.5,1)}
+@keyframes spin{50%{scale:1.6}to{transform:rotate(360deg)}}
+.stars em{font-style:normal;font-weight:800;margin-left:10px}
+.drop{display:flex;align-items:center;gap:14px;border:3px dashed var(--ink);border-radius:18px;padding:14px;cursor:pointer;font-weight:800;transition:all .25s}
+.drop:hover,.drop.over{background:var(--lime);transform:rotate(-1deg) scale(1.02)}
+.drop input{display:none}.drop img{width:64px;height:64px;object-fit:cover;border-radius:12px;border:3px solid var(--ink)}
+.shake{animation:shk .5s}
+@keyframes shk{20%,60%{translate:-10px 0}40%,80%{translate:10px 0}}
+.rev{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:34px 24px}
+.r{position:relative;background:var(--paper);color:var(--ink);padding:22px 20px 18px;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);animation:drop .8s cubic-bezier(.3,1.5,.5,1) both;transition:transform .3s}
+.r::before{content:"";position:absolute;top:-14px;left:50%;width:80px;height:26px;margin-left:-40px;background:var(--pink);opacity:.9;rotate:-4deg;border:2px solid var(--ink)}
+.r:nth-child(odd){rotate:-2deg}.r:nth-child(even){rotate:2deg}
+.r:hover{rotate:0deg;transform:translateY(-8px) scale(1.04)}
+.r img{width:100%;height:150px;object-fit:cover;border:3px solid var(--ink);margin-bottom:10px}
+.r .rs{color:#e8a600;font-size:20px;letter-spacing:2px}
+.r small{font-weight:800;opacity:.7}
+footer{background:var(--ink);color:var(--paper);text-align:center;padding:100px 5vw 130px;margin-top:60px}
+footer a{display:inline-block;font-family:"Rubik Mono One";color:var(--lime);font-size:clamp(24px,6vw,64px);text-decoration:none;transition:transform .3s cubic-bezier(.3,2,.5,1)}
+footer a:hover{transform:rotate(-4deg) scale(1.1)}
+.cf{position:fixed;z-index:90;width:11px;height:15px;pointer-events:none;left:0;top:0}
+
+.ov{position:fixed;inset:0;z-index:95;background:#11103acc;backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .3s;overflow-y:auto}
+.ov.on{opacity:1;pointer-events:auto}
+.md{width:min(620px,100%);max-height:100%;overflow-y:auto;background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:30px;box-shadow:10px 10px 0 var(--lime);padding:26px;scale:.5;rotate:-8deg;translate:0 80px;transition:all .6s cubic-bezier(.3,1.7,.5,1)}
+.ov.on .md{scale:1;rotate:0deg;translate:0 0}
+.md h3{font-size:clamp(20px,4vw,28px);margin-bottom:6px}
+.md .x{position:absolute;right:14px;top:10px;font-size:30px;font-weight:800;transition:transform .3s}
+.md .x:hover{transform:rotate(180deg) scale(1.2)}
+.md h4{font-family:"Rubik Mono One";font-weight:400;font-size:15px;margin:20px 0 10px}
+.tb{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.tb button{aspect-ratio:1;border:3px solid var(--ink);border-radius:16px 16px 6px 6px;background:#fff;font-family:"Rubik Mono One";font-size:18px;position:relative;opacity:0;transform:scale(0) rotate(-90deg);transition:background .2s,box-shadow .2s}
+.ov.on .tb button{animation:tp .5s cubic-bezier(.3,2,.5,1) forwards;animation-delay:calc(var(--k)*.035s + .25s)}
+@keyframes tp{to{opacity:1;transform:none}}
+.tb button::after{content:"";position:absolute;left:12%;right:12%;bottom:-9px;height:5px;background:var(--ink);border-radius:5px}
+.tb button:hover{background:var(--lime);box-shadow:3px 3px 0 var(--ink);translate:-2px -4px;rotate:-4deg}
+.tb button.sel{background:var(--blue);color:#fff;animation:tp .5s forwards,pulse 1s .5s infinite!important;box-shadow:0 0 0 5px var(--yolk),0 0 0 8px var(--ink)}
+@keyframes pulse{50%{scale:1.14}}
+.ms{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mc{border:3px solid var(--ink);border-radius:20px;padding:16px 8px;font-weight:800;font-size:18px;background:#fff;transition:transform .3s cubic-bezier(.3,2.5,.5,1),background .2s,color .2s}
+.mc span{display:block;font-size:40px;transition:transform .5s}
+.mc:hover{transform:translateY(-5px) rotate(-3deg)}
+.mc:hover span{transform:rotate(360deg) scale(1.2)}
+.mc.sel{color:#fff;box-shadow:5px 5px 0 var(--ink);transform:scale(1.06) rotate(2deg)}
+.mc[data-m=viber].sel{background:#7360f2}.mc[data-m=tg].sel{background:#229ed9}
+.bub{margin-top:14px;background:var(--yolk);border:3px solid var(--ink);border-radius:20px 20px 20px 4px;padding:14px 16px;font-weight:700;min-height:60px;position:relative}
+.bub.up{animation:bu .45s}
+@keyframes bu{40%{transform:scale(1.04) rotate(-1deg)}}
+.bub::after{content:"";position:absolute;left:-3px;bottom:-14px;border:8px solid transparent;border-top:12px solid var(--ink);border-left-color:var(--ink)}
+.go{width:100%;margin-top:26px;background:var(--blue);color:#fff;border:3px solid var(--ink);font-size:20px;padding:18px}
+.go.off{opacity:.45;filter:grayscale(.6)}
+.go.rdy{animation:pulse 1s infinite}
+.hint{text-align:center;font-size:13px;font-weight:700;margin:10px 0 0;opacity:.75}
+@media (max-width:700px){.it{grid-template-columns:1fr auto auto}.it .ds{grid-column:1/3;grid-row:2;font-size:14px}.links a:nth-child(3){display:none}.top{display:none}.badge{left:auto;right:4vw}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+:focus-visible{outline:4px solid var(--lime);outline-offset:3px}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="pv"></div>
+<nav><a class="logo" href="#top">Дзиґа</a><div class="links"><a href="#menu">Меню</a><a href="#cart">Кошик</a><a href="#reviews">Відгуки</a></div></nav>
+
+<header class="hero" id="top">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <svg class="top" viewBox="0 0 120 160" aria-hidden="true"><rect x="54" y="2" width="12" height="30" rx="5" fill="#11103a"/><path d="M12 48 Q60 22 108 48 L66 150 Q60 158 54 150Z" fill="#ff9ecb" stroke="#11103a" stroke-width="5" stroke-linejoin="round"/><g class="st" fill="none" stroke="#11103a" stroke-width="5" stroke-linecap="round"><path d="M22 62 Q60 82 98 62"/><path d="M34 90 Q60 106 86 90"/><ellipse cx="60" cy="48" rx="46" ry="12" fill="#ffd23f"/></g></svg>
+  <div class="badge"><svg viewBox="0 0 200 200"><defs><path id="c" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs><circle cx="100" cy="100" r="98" fill="#c8ff5a" stroke="#11103a" stroke-width="4"/><text font-family="Rubik Mono One" font-size="16" fill="#11103a"><textPath href="#c">КРУТИМОСЬ ЦІЛИЙ ДЕНЬ ✦ КАВА ✦ КРУТИМОСЬ ✦</textPath></text></svg><b>☕</b></div>
+  <div style="position:relative">
+    <div class="big" id="big"></div>
+    <p class="lead">Кафе, де кава крутиться швидше за думки, а круасани не встигають охолонути.</p>
+    <a class="btn" href="#menu">Крутнути меню</a>
+  </div>
+</header>
+
+<div class="band ba"><div id="ma"></div></div>
+<div class="band bb"><div id="mb"></div></div>
+
+<section class="s-menu" id="menu" style="margin-top:70px">
+  <div class="wv" style="color:var(--yolk)"><svg viewBox="0 0 2400 60" preserveAspectRatio="none"><path d="M0 30Q150 0 300 30T600 30T900 30T1200 30T1500 30T1800 30T2100 30T2400 30V60H0Z"/></svg></div>
+  <div class="wrap">
+    <h2 class="rv">Що крутимо сьогодні</h2>
+    <p class="sub">Наведи на рядок — з'явиться смаколик. Натисни «+», коли визначився.</p>
+    <div class="tabs" id="tabs"></div>
+    <div id="list"></div>
+  </div>
+</section>
+
+<section class="s-cart" id="cart" style="margin-top:70px">
+  <div class="wv" style="color:var(--pink)"><svg viewBox="0 0 2400 60" preserveAspectRatio="none"><path d="M0 30Q150 60 300 30T600 30T900 30T1200 30T1500 30T1800 30T2100 30T2400 30V60H0Z"/></svg></div>
+  <div class="wrap">
+    <h2 class="rv">Твій кошик</h2>
+    <div class="cart">
+      <div id="lines"></div>
+      <div class="tot"><span>Разом</span><b id="sum">0 ₴</b></div>
+      <button class="btn order" id="order">Замовити</button>
+      <p class="note">Обереш столик і месенджер (Viber або Telegram) — повідомлення з замовленням напишеться саме.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s-rev" id="reviews" style="margin-top:70px">
+  <div class="wv" style="color:var(--blue)"><svg viewBox="0 0 2400 60" preserveAspectRatio="none"><path d="M0 30Q150 0 300 30T600 30T900 30T1200 30T1500 30T1800 30T2100 30T2400 30V60H0Z"/></svg></div>
+  <div class="wrap">
+    <h2 class="rv">Що кажуть гості</h2>
+    <p class="sub">Середня оцінка: <b id="avg" class="mono" style="color:var(--yolk)">—</b></p>
+    <div class="form" id="form">
+      <select id="dish"></select>
+      <div class="stars" id="stars"></div>
+      <textarea id="txt" rows="3" placeholder="Напиши, що тобі сподобалось"></textarea>
+      <label class="drop" id="drop"><input type="file" accept="image/*" id="file"><span id="dtxt" style="font-size:34px">📷</span><span id="dlbl">Прикріпити фото або перетягнути сюди</span></label>
+      <button class="btn" id="send" style="justify-self:start">Опублікувати відгук</button>
+    </div>
+    <div class="rev" id="rev"></div>
+  </div>
+</section>
+
+<footer>
+  <p class="mono" style="font-size:20px;margin-bottom:20px">Хочеш замовити голосом?</p>
+  <a href="tel:+380987800168">+380 98 780 01 68</a>
+  <p style="opacity:.7;margin-top:30px">© Дзиґа. Усе крутиться, поки ти п'єш каву.</p>
+</footer>
+
+<div class="ov" id="ov"><div class="md" id="md" role="dialog" aria-label="Оформлення замовлення" style="position:relative">
+<button class="x" id="cl" aria-label="Закрити">×</button>
+<h3>Майже готово!</h3>
+<h4>1. Обери номер столика</h4><div class="tb" id="tb"></div>
+<h4>2. Куди надіслати замовлення?</h4>
+<div class="ms"><button class="mc" data-m="viber"><span>💜</span>Viber</button><button class="mc" data-m="tg"><span>✈️</span>Telegram</button></div>
+<h4>Ми напишемо ось так:</h4><div class="bub" id="bub">Обери столик і месенджер</div>
+<button class="btn go off" id="go">Готово</button>
+<p class="hint">Повідомлення відкриється в месенджері вже написаним. Лишиться натиснути «Надіслати». Також воно скопіюється.</p>
+</div></div>
+<div class="bar" id="bar"><span id="barTxt"></span><button id="done">Готово</button></div>
+
+<script>
+const M=[
+["Кава","☕","Лате «Дзиґа»","Подвійний шот і шовкове молоко",85],
+["Кава","🌀","Капучино «Вертушка»","Піна, що закручується сама",80],
+["Кава","🎠","Раф «Карусель»","Вершки, ваніль, солодкий оберт",110],
+["Кава","🧊","Еспресо-тонік «Бульк»","Тонік, цитрус і холодний шот",95],
+["Не кава","🍫","Какао «Обійми»","Густе, з хмаринкою маршмелоу",90],
+["Не кава","🍵","Матча «Зелена хвиля»","Японська матча на овсяному молоці",105],
+["Не кава","🍋","Лимонад «Дзвінко»","Лимон, м'ята, лід",80],
+["Їжа","🥑","Тост «Авокадо-бум»","Яйце пашот, мікрозелень, зерновий хліб",135],
+["Їжа","🧇","Вафлі «Ґудзик»","Ягоди, сироп і крем",130],
+["Їжа","🥞","Сирники «Колесо»","Три штуки зі сметаною та варенням",120],
+["Десерти","🥐","Круасан «Спіраль»","Мигдальний крем, ще теплий",75],
+["Десерти","🍰","Чізкейк «Ніжність»","Класичний, із ягідним соусом",115]];
+const cats=["Усе",...new Set(M.map(m=>m[0]))],$=s=>document.querySelector(s);
+let cart={},cat="Усе",rate=0,photo="",reviews=[
+{s:5,t:"Лате «Дзиґа» — найкраще в місті. Піна тримається до останнього ковтка.",n:"Оля",d:"☕ Лате «Дзиґа»"},
+{s:4,t:"Сирники ідеальні. Хотіла б ще варення, але це вже жадібність.",n:"Макс",d:"🥞 Сирники «Колесо»"},
+{s:5,t:"Лимонад «Дзвінко» — літо у склянці. Беру щоразу.",n:"Дана",d:"🍋 Лимонад «Дзвінко»"}];
+
+// hero letters + repel
+const big=$("#big");big.innerHTML=[..."ДЗИҐА"].map((c,i)=>`<span style="animation-delay:${i*.1}s,${i*.4}s">${c}</span>`).join("");
+const L=[...big.children];
+// bands
+$("#ma").innerHTML=("☕ Свіжа обсмажка &nbsp;✦&nbsp; 🥐 Круасани щогодини &nbsp;✦&nbsp; 🌀 Крутимо без вихідних &nbsp;✦&nbsp; ").repeat(10);
+$("#mb").innerHTML=("🍰 Чізкейк дня &nbsp;✦&nbsp; 🍋 Лимонад зі льодом &nbsp;✦&nbsp; 🎠 Раф «Карусель» &nbsp;✦&nbsp; ").repeat(10);
+// headings
+document.querySelectorAll("h2.rv").forEach(h=>{h.innerHTML=h.textContent.split(" ").map((w,i)=>`<span class="w"><i style="transition-delay:${i*.1}s">${w}</i></span> `).join("")});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.4});
+document.querySelectorAll("h2.rv").forEach(h=>io.observe(h));
+
+// cursor, repel, preview
+const cur=$("#cur"),pv=$("#pv");let cx=0,cy=0,tx=0,ty=0;
+addEventListener("mousemove",e=>{tx=e.clientX;ty=e.clientY;
+ L.forEach(l=>{const r=l.getBoundingClientRect(),dx=r.left+r.width/2-tx,dy=r.top+r.height/2-ty,d=Math.hypot(dx,dy);
+  l.style.translate=d<220?`${dx/d*(220-d)/3.5}px ${dy/d*(220-d)/3.5}px`:"0 0"});
+ const t=e.target.closest("button,a,select,label,.it,textarea");cur.classList.toggle("big",!!t&&!t.matches("textarea,select"));
+ const it=e.target.closest(".it");if(it){pv.textContent=M[it.dataset.i][1];pv.classList.add("on")}else pv.classList.remove("on")});
+(function f(){cx+=(tx-cx)*.2;cy+=(ty-cy)*.2;cur.style.transform=`translate(${cx}px,${cy}px)`;
+ pv.style.transform=`translate(${tx+30}px,${ty-70}px) rotate(${(tx-cx)/3}deg)`;requestAnimationFrame(f)})();
+// scroll-linked bands
+const bands=[$("#ma"),$("#mb")];
+addEventListener("scroll",()=>{const y=scrollY;bands[0].style.transform=`translateX(${-y*.6}px)`;bands[1].style.transform=`translateX(${-2000+y*.6}px)`},{passive:true});
+
+// menu
+function tabs(){$("#tabs").innerHTML=cats.map(c=>`<button class="tab ${c==cat?"on":""}" data-c="${c}">${c}</button>`).join("")}
+function list(){$("#list").innerHTML=M.map((m,i)=>[m,i]).filter(([m])=>cat=="Усе"||m[0]==cat).map(([m,i],k)=>`<div class="it" data-i="${i}" style="animation-delay:${k*.06}s"><span class="nm">${m[2]}</span><span class="ds">${m[3]}</span><span class="pr">${m[4]} ₴</span><button class="add" data-i="${i}" aria-label="Додати ${m[2]}">+</button></div>`).join("")}
+$("#tabs").onclick=e=>{if(e.target.dataset.c){cat=e.target.dataset.c;tabs();list()}};
+$("#list").onclick=e=>{const b=e.target.closest(".add");if(!b)return;const i=b.dataset.i;cart[i]=(cart[i]||0)+1;fly(b,M[i][1]);upd()};
+function fly(b,em){const a=b.getBoundingClientRect(),f=document.createElement("div");f.className="fly";f.textContent=em;f.style.left=a.left+"px";f.style.top=a.top+"px";document.body.append(f);
+ const x=innerWidth/2-a.left-60,y=innerHeight-60-a.top;
+ f.animate([{transform:"translate(0,0) scale(1)"},{transform:`translate(${x/2}px,${y/2-160}px) scale(2.2) rotate(200deg)`,offset:.45},{transform:`translate(${x}px,${y}px) scale(.3) rotate(720deg)`,opacity:.4}],{duration:900,easing:"ease-in-out"}).onfinish=()=>f.remove()}
+const sum=()=>Object.entries(cart).reduce((s,[i,q])=>s+M[i][4]*q,0),cnt=()=>Object.values(cart).reduce((a,b)=>a+b,0);
+function upd(){const n=cnt(),bar=$("#bar");bar.classList.toggle("show",n>0);$("#barTxt").textContent=`${n} поз. · ${sum()} ₴`;
+ bar.classList.remove("bump");void bar.offsetWidth;bar.classList.add("bump");$("#sum").textContent=sum()+" ₴";
+ $("#lines").innerHTML=n?Object.entries(cart).map(([i,q])=>`<div class="ln"><span class="em">${M[i][1]}</span><span class="n">${M[i][2]}<br><small>${M[i][4]} ₴</small></span><span class="q"><button data-m="${i}">−</button>${q}<button data-p="${i}">+</button></span></div>`).join(""):`<div class="empty"><span>🌀</span>Тут порожньо. Додай щось із меню.</div>`}
+$("#lines").onclick=e=>{const m=e.target.dataset.m,p=e.target.dataset.p;if(p)cart[p]++;if(m&&--cart[m]<=0)delete cart[m];upd()};
+$("#done").onclick=()=>$("#cart").scrollIntoView({behavior:"smooth"});
+let tbl=0,msg="";
+$("#tb").innerHTML=Array.from({length:20},(_,i)=>`<button style="--k:${i}" data-t="${i+1}" aria-label="Столик ${i+1}">${i+1}</button>`).join("");
+const hot=m=>["Кава","Не кава"].includes(m[0])&&!/Бульк|Дзвінко/.test(m[2]);
+function text(){const it=Object.entries(cart).map(([i,q])=>{const m=M[i];return(hot(m)?"гарячий ":"")+m[2]+(q>1?` ×${q}`:"")}).join(", ");return `Прошу зробіть: ${it}, на столик №${tbl||"…"}. Сума: ${sum()} ₴. Дякую!`}
+function bub(){const b=$("#bub");b.textContent=text();b.classList.remove("up");void b.offsetWidth;b.classList.add("up");
+ const ok=tbl&&msg;$("#go").classList.toggle("off",!ok);$("#go").classList.toggle("rdy",!!ok)}
+$("#order").onclick=()=>{if(!cnt()){const l=$(".cart");l.classList.remove("shake");void l.offsetWidth;l.classList.add("shake");return}
+ $("#ov").classList.add("on");bub()};
+const close=()=>$("#ov").classList.remove("on");
+$("#cl").onclick=close;$("#ov").onclick=e=>{if(e.target.id=="ov")close()};
+$("#tb").onclick=e=>{const b=e.target.closest("button");if(!b)return;tbl=+b.dataset.t;document.querySelectorAll(".tb button").forEach(x=>x.classList.toggle("sel",x==b));confetti(b,14);bub()};
+document.querySelector(".ms").onclick=e=>{const b=e.target.closest(".mc");if(!b)return;msg=b.dataset.m;document.querySelectorAll(".mc").forEach(x=>x.classList.toggle("sel",x==b));confetti(b,14);bub()};
+$("#go").onclick=e=>{const g=e.currentTarget;
+ if(!tbl||!msg){const m=$("#md");m.classList.remove("shake");void m.offsetWidth;m.classList.add("shake");return}
+ const t=text(),n="380987800168";try{navigator.clipboard.writeText(t)}catch(_){}
+ const url=msg=="viber"?`viber://chat?number=%2B${n}&draft=${encodeURIComponent(t)}`:`https://t.me/weretymaker?text=${encodeURIComponent(t)}`;
+ const l=document.createElement("a");l.href=url;l.target="_blank";l.rel="noopener";document.body.append(l);l.click();l.remove();
+ g.textContent="Відправляємо… 🚀";confetti(g,90);
+ setTimeout(()=>{g.textContent="Готово";close();cart={};upd();$("#bar").classList.remove("show")},1200)};
+function confetti(el,n=70){const r=el.getBoundingClientRect();for(let i=0;i<n;i++){const c=document.createElement("div");c.className="cf";c.style.background=["#ffd23f","#ff9ecb","#c8ff5a","#2b3cff","#11103a"][i%5];c.style.left=r.left+r.width/2+"px";c.style.top=r.top+"px";c.style.borderRadius=i%2?"50%":"2px";document.body.append(c);
+ c.animate([{transform:"translate(0,0)"},{transform:`translate(${(Math.random()-.5)*700}px,${-250-Math.random()*250}px) rotate(${Math.random()*720}deg)`,offset:.45},{transform:`translate(${(Math.random()-.5)*900}px,600px) rotate(1100deg)`,opacity:0}],{duration:1700+Math.random()*700,easing:"ease-out"}).onfinish=()=>c.remove()}}
+
+// reviews
+$("#dish").innerHTML=`<option value="">Яку страву оцінюєш?</option>`+M.map(m=>`<option>${m[1]} ${m[2]}</option>`).join("");
+const LB=["","Жах","Так собі","Нормально","Смачно!","Космос!"],S='<svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.3 4.7 1.7 7.2L12 17.6 5.6 21.5l1.7-7.2L2 9.6 9 9z"/></svg>';
+$("#stars").innerHTML=[1,2,3,4,5].map(i=>`<button data-s="${i}" aria-label="${i} з 5">${S}</button>`).join("")+`<em id="lab"></em>`;
+const paint=n=>{document.querySelectorAll("#stars button").forEach(b=>b.classList.toggle("on",+b.dataset.s<=n));$("#lab").textContent=LB[n]||""};
+$("#stars").onmouseover=e=>{const b=e.target.closest("button");if(b)paint(+b.dataset.s)};
+$("#stars").onmouseleave=()=>paint(rate);
+$("#stars").onclick=e=>{const b=e.target.closest("button");if(!b)return;rate=+b.dataset.s;paint(rate);
+ document.querySelectorAll("#stars button").forEach(x=>{x.classList.remove("pop");if(+x.dataset.s<=rate){void x.offsetWidth;x.style.animationDelay=x.dataset.s*.07+"s";x.classList.add("pop")}});confetti(b,18)};
+function load(f){if(!f)return;const r=new FileReader();r.onload=()=>{photo=r.result;$("#dtxt").outerHTML=`<img id="dtxt" src="${photo}" alt="">`;$("#dlbl").textContent=f.name};r.readAsDataURL(f)}
+$("#file").onchange=e=>load(e.target.files[0]);
+const dr=$("#drop");["dragover","dragenter"].forEach(v=>dr.addEventListener(v,e=>{e.preventDefault();dr.classList.add("over")}));
+["dragleave","drop"].forEach(v=>dr.addEventListener(v,e=>{e.preventDefault();dr.classList.remove("over");if(v=="drop")load(e.dataTransfer.files[0])}));
+$("#send").onclick=e=>{
+ if(!$("#dish").value||!rate){const f=$("#form");f.classList.remove("shake");void f.offsetWidth;f.classList.add("shake");return}
+ reviews.unshift({s:rate,t:$("#txt").value.replace(/</g,"&lt;")||"Без слів, лише зірки.",n:"Ти",d:$("#dish").value,img:photo});
+ confetti(e.currentTarget);rate=0;photo="";paint(0);$("#txt").value="";$("#dish").value="";$("#file").value="";$("#dlbl").textContent="Прикріпити фото або перетягнути сюди";
+ const d=$("#dtxt");if(d)d.outerHTML=`<span id="dtxt" style="font-size:34px">📷</span>`;rv()};
+function rv(){$("#rev").innerHTML=reviews.map(r=>`<div class="r">${r.img?`<img src="${r.img}" alt="Фото страви">`:""}<div class="rs">${"★".repeat(r.s)}${"☆".repeat(5-r.s)}</div><p>${r.t}</p><small>${r.n} · ${r.d}</small></div>`).join("");
+ $("#avg").textContent=(reviews.reduce((a,r)=>a+r.s,0)/reviews.length).toFixed(1)+" / 5"}
+tabs();list();upd();rv();$("#bar").classList.remove("show");
+</script>
+</body>
+</html>
